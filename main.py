@@ -1,26 +1,54 @@
-import datetime
-from typing import Optional
+import asyncio
 
-import pydantic
+import fastapi
+import uvicorn
+
+from fastapi.templating import Jinja2Templates
+
+from contextlib import asynccontextmanager
 
 
-class Item(pydantic.BaseModel):
-    item_id: int
-    name: Optional[str] = "Jane Doe"
-    created_date: datetime.datetime
-    pages_visited: list[int]
-    price: float
+from starlette.requests import Request
+from starlette.staticfiles import StaticFiles
+
+from api import package_api, stats_api
+from infrastructure import mongo_setup
+
+
+# this is a context manager that will setup the database connection
+@asynccontextmanager
+async def setup(api: fastapi.FastAPI):
+    await mongo_setup.init_connection('pypi')
+    yield
+
+
+api = fastapi.FastAPI(lifespan=setup)
+templates = Jinja2Templates(directory="templates")
+
+
+@api.get("/", include_in_schema=False)
+def index(request: Request):
+    return templates.TemplateResponse("index.html", {"name": "THE BIG APP", "request": request})
+
+
+def configure_routing():
+    api.mount("/static", StaticFiles(directory="static"), name="static")
+    api.include_router(package_api.router)
+    api.include_router(stats_api.router)
+
+
+# @api.on_event("startup")
+# async def configure_db():
+#     await mongo_setup.init_connection('pypi')
 
 
 def main():
-    data = {"item_id": 1,
-            "name": "Karthik",
-            "created_date": "2021-01-01T00:00:00",
-            "pages_visited": [1, 2, 3],
-            "price": 10.0}
+    configure_routing()
+    uvicorn.run(api, host='localhost', port=8000)
+    pass
 
-    item = Item(**data)
-    print(item)
 
 if __name__ == '__main__':
     main()
+else:
+    configure_routing()
