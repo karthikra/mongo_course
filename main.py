@@ -18,7 +18,7 @@ from infrastructure import mongo_setup
 # this is a context manager that will setup the database connection
 @asynccontextmanager
 async def setup(api: fastapi.FastAPI):
-    await mongo_setup.init_connection('pypi')
+    await mongo_setup.init_db('pypi')
     yield
 
 

@@ -137,7 +137,7 @@ async def create_release():
     await summary()
 
 async def main():
-    await mongo_setup.init_connection('pypi')
+    await mongo_setup.init_db('pypi')
     print_header()
 
     await summary()
