@@ -1,8 +1,8 @@
 import asyncio
 from typing import Optional
 
-from infrastructure import mongo_setup
-from models.user import Location
+from mongo_beanie.infrastructure import mongo_setup
+from mongo_beanie.models import Location
 from services import package_service, user_service
 
 

@@ -3,8 +3,8 @@ from typing import Optional
 
 import pymongo.results
 
-from models.package import Package, Release, PackageTopLevel
-from models.release_analytics import ReleaseAnalytics
+from mongo_beanie.models import Package, Release, PackageTopLevel
+from mongo_beanie.models import ReleaseAnalytics
 from beanie.odm.operators.find.array import ElemMatch
 from beanie.odm.operators.update import array
 from beanie.odm.operators.update.general import Set, Inc

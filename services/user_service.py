@@ -1,4 +1,4 @@
-from models.user import User
+from mongo_beanie.models import User
 from passlib.handlers.argon2 import argon2 as crypto
 
 crypto.default_rounds = 25

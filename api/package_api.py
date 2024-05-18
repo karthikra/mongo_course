@@ -1,8 +1,8 @@
 import fastapi
 
-from api.models.recent_pakage_model import RecentPackageModel, RecentPackage
-from models.package import Package
-from services import package_service
+from mongo_beanie.api.models.recent_pakage_model import RecentPackageModel, RecentPackage
+from mongo_beanie.models.package import Package
+from mongo_beanie.services import package_service
 
 # api/packages/recent/{count}
 # api/packages/details/{package_name}

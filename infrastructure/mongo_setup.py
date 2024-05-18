@@ -3,7 +3,7 @@ from typing import Optional
 import motor.motor_asyncio
 import beanie
 
-import models
+from mongo_beanie import models
 
 
 # async def init_connection(db_name: str):

@@ -1,5 +1,3 @@
-import asyncio
-
 import fastapi
 import uvicorn
 
@@ -11,8 +9,8 @@ from contextlib import asynccontextmanager
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 
-from api import package_api, stats_api
-from infrastructure import mongo_setup
+from mongo_beanie.api import package_api, stats_api
+from mongo_beanie.infrastructure import mongo_setup
 
 
 # this is a context manager that will setup the database connection

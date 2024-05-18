@@ -1,7 +1,7 @@
 import fastapi
 
-from api.models.stats_model import StatsModel
-from services import package_service, user_service
+from mongo_beanie.api.models.stats_model import StatsModel
+from mongo_beanie.services import user_service, package_service
 
 # api/packages/recent/{count}
 # api/packages/details/{package_name}

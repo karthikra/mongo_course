@@ -1,9 +1,8 @@
 import asyncio
-from typing import Optional
 
-from infrastructure import mongo_setup
-from infrastructure.time_utils import timed_async
-from models.user import Location
+from mongo_beanie.infrastructure import mongo_setup
+from mongo_beanie.infrastructure.time_utils import timed_async
+from mongo_beanie.models import Location
 from services import package_service, user_service
 
 
@@ -68,7 +67,7 @@ async def timed_package_count(build, major, minor):
 @timed_async
 async def get_timed_package(name):
     for _ in range(0, TIMES):
-        package = await package_service.search_package_by_name(name,summary_only=True)
+        package = await package_service.search_package_by_name(name, summary_only=True)
 
     return package
 
